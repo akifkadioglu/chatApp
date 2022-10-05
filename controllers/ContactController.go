@@ -30,9 +30,9 @@ func ConnectAUser(c echo.Context) error {
 
 	db := database.DBManager()
 
-	contact.From = 2
-	contact.To = 10
-	
+	contact.FromId = 2
+	contact.ToId = 10
+
 	db.Create(&contact)
 	db.Find(&user, 10)
 

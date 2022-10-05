@@ -6,8 +6,8 @@ import (
 
 type Contact struct {
 	gorm.Model
-	From     int  `json:"from"`
-	To       int  `json:"to"`
-	UserTo   User `json:"userTo" gorm:"foreignkey:to;references:id;constraint:OnDelete:CASCADE"`
-	UserFrom User `json:"userFrom" gorm:"foreignkey:from;references:id;constraint:OnDelete:CASCADE"`
+	FromId int  `json:"from_id"`
+	ToId   int  `json:"to_id"`
+	From   User `json:"from" gorm:"foreignkey:from_id;references:id;constraint:OnDelete:CASCADE"`
+	To     User `json:"to" gorm:"foreignkey:to_id;references:id;constraint:OnDelete:CASCADE"`
 }

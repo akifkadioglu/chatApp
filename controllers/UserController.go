@@ -2,16 +2,18 @@ package controllers
 
 import (
 	"chatApp/database"
+	helpers "chatApp/helpers"
 	models "chatApp/models"
-	"github.com/labstack/echo/v4"
 	"net/http"
+
+	"github.com/labstack/echo/v4"
 )
 
 // All users
 func GetUsers(c echo.Context) error {
 	var users []models.User
 	db := database.DBManager()
-
+	helpers.SendEmail("akif.kadioglu.28@gmail.com", "naber", "naber knk")
 	db.Find(&users)
 	return c.JSON(http.StatusOK, map[string][]models.User{
 		"users": users,
