@@ -4,5 +4,5 @@ import "gorm.io/gorm"
 
 type Language struct {
 	gorm.Model
-	Name string `json:"name" gorm:"unique"`
+	Name string `json:"name"`
 }

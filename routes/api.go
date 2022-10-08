@@ -3,28 +3,30 @@ package routes
 import (
 	"chatApp/adapter"
 	controllers "chatApp/controllers"
-	"chatApp/models"
-
-	"github.com/labstack/echo/v4/middleware"
+	authcontroller "chatApp/controllers/AuthController"
+	contactcontroller "chatApp/controllers/ContactController"
+	usercontroller "chatApp/controllers/UserController"
 )
 
 func Api() {
-	api := E.Group("/api")
+	api := Network.Group("/api")
 
-	api.POST("/login", controllers.Login)
+	//Authenticate
+	api.POST("/register", authcontroller.Register)
+	api.POST("/login", authcontroller.Login)
+	api.POST("/forgot-password", authcontroller.ForgotPassword)
 
-	auth := E.Group("/restricted")
-	
-	admin := api.Group("/admin", adapter.AdminAdapter)
-	//for everybody
-	config := middleware.JWTConfig{
-		KeyFunc: models.GetKey,
-	}
-	auth.Use(middleware.JWTWithConfig(config))
-	auth.GET("/getContacts", controllers.GetContacts)
-	auth.GET("/connectAUser", controllers.ConnectAUser)
-	auth.POST("/searchUsers", controllers.SearchUser)
+	/*                            For auth users                            */
+	auth := api.Group("")
+	auth.Use(adapter.AuthAdapter())
 
-	//for admin
-	admin.GET("/getUsers", controllers.GetUsers)
+	//contact controllers
+	auth.GET("/getContacts", contactcontroller.GetContacts)
+	auth.POST("/addAContact", contactcontroller.AddAContact)
+
+	//user controller
+	auth.POST("/searchUsers", usercontroller.SearchUser)
+
+	//index
+	auth.GET("/index", controllers.Index)
 }

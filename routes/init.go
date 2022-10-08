@@ -1,17 +1,15 @@
 package routes
 
 import (
+	"chatApp/adapter"
 	"chatApp/env"
-
 	"github.com/labstack/echo/v4"
-	"github.com/labstack/echo/v4/middleware"
 )
 
 var E = echo.New()
+var Network = E.Group("", adapter.ConsoleAdapter)
 
 func Init() {
-	E.Use(middleware.Logger())
-	E.Use(middleware.Recover())
 	Web()
 	Api()
 	port := ":" + env.GoDotEnvVariable("APP_PORT")

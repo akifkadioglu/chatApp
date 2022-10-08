@@ -3,6 +3,7 @@ package database
 import (
 	"chatApp/env"
 	models "chatApp/models"
+
 	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
 )
@@ -20,7 +21,7 @@ var dbAddress = env.GoDotEnvVariable("DB_USERNAME") + ":" +
 func Init() gorm.DB {
 	dns := dbAddress + env.GoDotEnvVariable("DB_DATABASE") + "?charset=utf8mb4&parseTime=True&loc=Local"
 	db, err = gorm.Open(mysql.Open(dns))
-	db.AutoMigrate(&models.User{}, &models.Contact{}, &models.Message{}, &models.Language{}, &models.UserLanguage{}, &models.Country{}, &models.UserCountry{}, &models.JwtCustomClaims{})
+	db.AutoMigrate(&models.User{}, &models.Contact{}, &models.Message{}, &models.Language{}, &models.UserLanguage{}, &models.Country{}, &models.UserCountry{}, &models.Block{})
 	if err != nil {
 		panic(err.Error())
 	}
