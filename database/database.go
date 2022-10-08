@@ -21,7 +21,7 @@ var dbAddress = env.GoDotEnvVariable("DB_USERNAME") + ":" +
 func Init() gorm.DB {
 	dns := dbAddress + env.GoDotEnvVariable("DB_DATABASE") + "?charset=utf8mb4&parseTime=True&loc=Local"
 	db, err = gorm.Open(mysql.Open(dns))
-	db.AutoMigrate(&models.User{}, &models.Contact{}, &models.Message{}, &models.Language{}, &models.UserLanguage{}, &models.Country{}, &models.UserCountry{}, &models.Block{})
+	db.AutoMigrate(&models.User{}, &models.Contact{}, &models.Message{}, &models.Language{}, &models.UserLanguage{}, &models.Country{}, &models.UserCountry{}, &models.Block{}, &models.Group{}, &models.GroupUser{})
 	if err != nil {
 		panic(err.Error())
 	}
