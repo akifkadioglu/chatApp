@@ -32,6 +32,8 @@ func Api() {
 
 	//group controllers
 	auth.POST("/createGroup", groupcontroller.CreateGroup)
+	auth.POST("/addGroupUser", groupcontroller.AddGroupUser)
+	auth.GET("/getUserGroups", groupcontroller.GetUserGroups)
 
 	//index
 	auth.GET("/index", controllers.Index)
