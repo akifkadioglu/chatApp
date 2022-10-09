@@ -23,6 +23,8 @@ func Api() {
 	/*                            For auth users                            */
 	auth := api.Group("")
 	auth.Use(adapter.AuthAdapter())
+	//check auth
+	auth.GET("/getAuthUser", authcontroller.GetAuthUser)
 
 	//contact controllers
 	auth.GET("/getContacts", contactcontroller.GetContacts)
@@ -39,6 +41,7 @@ func Api() {
 	auth.GET("/getGroupUsers", groupcontroller.GetGroupUsers)
 
 	//message controllers
+	auth.GET("/getContactsMessages", messagecontroller.GetContactsMessages)
 	auth.POST("/sendMessage", messagecontroller.SendMessage)
 	auth.DELETE("/deleteMessage", messagecontroller.DeleteMessage)
 	auth.DELETE("/deleteAllMessage", messagecontroller.DeleteAllMessage)
@@ -46,7 +49,7 @@ func Api() {
 	//profile controllers
 	auth.PUT("/updateProfile", profilecontroller.UpdateProfile)
 	auth.PUT("/changePassword", profilecontroller.ChangePassword)
-	
+
 	//index
 	auth.GET("/index", controllers.Index)
 	/*                            For auth users                            */

@@ -25,7 +25,6 @@ func Login(c echo.Context) error {
 	var user models.User
 	db := database.DBManager()
 	c.Bind(&input)
-
 	//validate inputs
 	err := loginValidate(c, input)
 	if err != nil {
@@ -45,11 +44,15 @@ func Login(c echo.Context) error {
 
 	// Set custom claims
 	var claims = &models.JwtCustomClaims{
-		Time:     time.Now().Format("2006-01-02 15:04:05"),
-		Username: user.Name,
-		ID:       user.ID,
+		Time:      time.Now().Format("2006-01-02 15:04:05"),
+		ID:        user.ID,
+		Image:     user.Image,
+		Username:  user.Name,
+		Name:      user.Name,
+		Email:     user.Email,
+		Biography: user.Biography,
 		StandardClaims: jwt.StandardClaims{
-			ExpiresAt: time.Now().Add(time.Hour * 72).Unix(),
+			ExpiresAt: time.Now().Add(time.Hour * 24 * 365).Unix(),
 		},
 	}
 
