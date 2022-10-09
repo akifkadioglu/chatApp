@@ -6,6 +6,8 @@ import (
 	authcontroller "chatApp/controllers/AuthController"
 	contactcontroller "chatApp/controllers/ContactController"
 	groupcontroller "chatApp/controllers/GroupController"
+	messagecontroller "chatApp/controllers/MessageController"
+	profilecontroller "chatApp/controllers/ProfileController"
 	usercontroller "chatApp/controllers/UserController"
 )
 
@@ -34,7 +36,17 @@ func Api() {
 	auth.POST("/createGroup", groupcontroller.CreateGroup)
 	auth.POST("/addGroupUser", groupcontroller.AddGroupUser)
 	auth.GET("/getUserGroups", groupcontroller.GetUserGroups)
+	auth.GET("/getGroupUsers", groupcontroller.GetGroupUsers)
 
+	//message controllers
+	auth.POST("/sendMessage", messagecontroller.SendMessage)
+	auth.DELETE("/deleteMessage", messagecontroller.DeleteMessage)
+	auth.DELETE("/deleteAllMessage", messagecontroller.DeleteAllMessage)
+
+	//profile controllers
+	auth.PUT("/updateProfile", profilecontroller.UpdateProfile)
+	auth.PUT("/changePassword", profilecontroller.ChangePassword)
+	
 	//index
 	auth.GET("/index", controllers.Index)
 	/*                            For auth users                            */

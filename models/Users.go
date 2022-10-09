@@ -8,6 +8,6 @@ type User struct {
 	Name     string `json:"name" gorm:"not null; size:60"`
 	Email    string `json:"email" gorm:"not null; size:60; unique" validate:"required,email"`
 	Username string `json:"username" gorm:"not null; size:60; unique" validate:"required,min=3"`
-	Biograpy string `json:"biography" gorm:"default:null"`
+	Biography string `json:"biography" gorm:"default:null"`
 	Password string `json:"password" gorm:"not null" validate:"required,min=5"`
 }

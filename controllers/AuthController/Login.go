@@ -2,12 +2,12 @@ package authcontroller
 
 import (
 	"chatApp/env"
+	"chatApp/helpers"
 	"net/http"
 	"time"
 
 	"github.com/golang-jwt/jwt"
 	"github.com/labstack/echo/v4"
-	"golang.org/x/crypto/bcrypt"
 	"gopkg.in/go-playground/validator.v9"
 
 	"chatApp/database"
@@ -37,10 +37,8 @@ func Login(c echo.Context) error {
 	if user.ID == 0 {
 		return c.JSON(http.StatusBadRequest, echo.ErrNotFound)
 	}
-	userPassword := []byte(user.Password)
-	password := []byte(input.Password)
 
-	err = bcrypt.CompareHashAndPassword(userPassword, password)
+	err = helpers.CompareHash(user.Password, input.Password)
 	if err != nil {
 		return echo.ErrUnauthorized
 	}

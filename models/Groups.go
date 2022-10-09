@@ -4,5 +4,6 @@ import "gorm.io/gorm"
 
 type Group struct {
 	gorm.Model
-	Name string `json:"name"`
+	Image string `json:"image"`
+	Name  string `json:"name"`
 }

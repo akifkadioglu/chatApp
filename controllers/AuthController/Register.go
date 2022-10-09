@@ -2,12 +2,12 @@ package authcontroller
 
 import (
 	"chatApp/database"
+	"chatApp/helpers"
 	"chatApp/models"
 	"errors"
 	"net/http"
 
 	"github.com/labstack/echo/v4"
-	"golang.org/x/crypto/bcrypt"
 	"gopkg.in/go-playground/validator.v9"
 	"gorm.io/gorm"
 )
@@ -38,8 +38,7 @@ func Register(c echo.Context) error {
 	}
 
 	//hashing
-	hashedPassword, _ := bcrypt.GenerateFromPassword([]byte(user.Password), bcrypt.DefaultCost)
-	user.Password = string(hashedPassword)
+	user.Password = helpers.Hash(user.Password)
 
 	//creating
 	db.Create(&user)
