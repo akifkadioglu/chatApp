@@ -12,7 +12,7 @@ import (
 )
 
 type inputAddAContact struct {
-	To int `json:"to"`
+	To int `json:"to_id"`
 }
 
 func AddAContact(c echo.Context) error {

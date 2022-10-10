@@ -13,7 +13,7 @@ import (
 func GetContactsMessages(c echo.Context) error {
 	var messages []models.Message
 	db := database.DBManager()
-	result := db.Joins("To").Where("`from_id` = " + strconv.Itoa(int(helpers.User(c).ID)) + " OR " + "`to_id` = " + strconv.Itoa(int(helpers.User(c).ID))).Order("created_at desc").Find(&messages)
+	result := db.Joins("To").Where("`from_id` = " + strconv.Itoa(int(helpers.User(c).ID)) + " OR " + "`to_id` = " + strconv.Itoa(int(helpers.User(c).ID))).Last(&messages)
 	if result.Error != nil {
 		return echo.ErrInternalServerError
 	}
