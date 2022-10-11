@@ -2,10 +2,10 @@ package models
 
 import "gorm.io/gorm"
 
-type Message struct {
+type GroupMessages struct {
 	gorm.Model
 	Message string
+	GroupId int `json:"group_id"`
 	UserId  int `json:"user_id"`
-	ToId    int `json:"to_id"`
 	User    User
 }

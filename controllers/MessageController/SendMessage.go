@@ -4,6 +4,7 @@ import (
 	"chatApp/database"
 	"chatApp/helpers"
 	"chatApp/models"
+	"fmt"
 	"net/http"
 	"strconv"
 
@@ -21,6 +22,7 @@ func SendMessage(c echo.Context) error {
 	var input inputSendMessage
 	var block models.Block
 	db := database.DBManager()
+	fmt.Println(1)
 
 	c.Bind(&input)
 	err := sendMessageValidate(c, input)
@@ -37,7 +39,7 @@ func SendMessage(c echo.Context) error {
 		})
 	}
 
-	message.FromId = int(helpers.User(c).ID)
+	message.UserId = int(helpers.User(c).ID)
 	message.ToId = input.To_id
 	message.Message = input.Message
 	result = db.Create(&message)

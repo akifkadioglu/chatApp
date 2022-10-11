@@ -7,6 +7,5 @@ type GroupUser struct {
 	GroupId int   `json:"group_id"`
 	FromId  int   `json:"from_id"`
 	IsAdmin bool  `json:"is_admin" gorm:"default:false"`
-	From    User  `json:"from" gorm:"foreignKey:from_id; References:id"`
 	Group   Group `json:"group" gorm:"foreignKey:group_id; References:id"`
 }

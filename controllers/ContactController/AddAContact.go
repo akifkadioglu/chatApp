@@ -32,7 +32,7 @@ func AddAContact(c echo.Context) error {
 		return c.JSON(http.StatusInternalServerError, http.StatusText(http.StatusInternalServerError))
 	}
 
-	contact.FromId = int(helpers.User(c).ID)
+	contact.UserId = int(helpers.User(c).ID)
 	contact.ToId = input.To
 	result = db.Create(&contact)
 	if result.Error != nil {

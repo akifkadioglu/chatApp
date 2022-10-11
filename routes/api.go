@@ -43,7 +43,9 @@ func Api() {
 	//message controllers
 	auth.GET("/getMessages", messagecontroller.GetMessages)
 	auth.GET("/getContactsMessages", messagecontroller.GetContactsMessages)
+	auth.GET("/getGroupMessages", messagecontroller.GetGroupMessages)
 	auth.POST("/sendMessage", messagecontroller.SendMessage)
+	auth.POST("/sendMessageToGroup", messagecontroller.SendMessageToGroup)
 	auth.DELETE("/deleteMessage", messagecontroller.DeleteMessage)
 	auth.DELETE("/deleteAllMessage", messagecontroller.DeleteAllMessage)
 

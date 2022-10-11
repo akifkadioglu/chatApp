@@ -18,6 +18,6 @@ func GetUserGroups(c echo.Context) error {
 		return c.JSON(http.StatusInternalServerError, http.StatusText(http.StatusInternalServerError))
 	}
 	return c.JSON(http.StatusOK, map[string][]models.GroupUser{
-		"groups": usergroups,
+		"userGroups": usergroups,
 	})
 }
