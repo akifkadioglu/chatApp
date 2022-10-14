@@ -29,10 +29,11 @@ func Api() {
 	//contact controllers
 	auth.GET("/getContacts", contactcontroller.GetContacts)
 	auth.POST("/addAContact", contactcontroller.AddAContact)
+	auth.DELETE("/deleteAContact", contactcontroller.DeleteAContact)
 
 	//user controllers
-	auth.POST("/searchUsers", usercontroller.SearchUser)
-	auth.POST("/getSingleUser", usercontroller.GetSingleUser)
+	auth.GET("/searchUsers", usercontroller.SearchUser)
+	auth.GET("/getSingleUser", usercontroller.GetSingleUser)
 
 	//group controllers
 	auth.POST("/createGroup", groupcontroller.CreateGroup)

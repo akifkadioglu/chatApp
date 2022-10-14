@@ -12,7 +12,7 @@ import (
 )
 
 type inputAddAContact struct {
-	To int `json:"to_id"`
+	To int `json:"to_id" validate:"required"`
 }
 
 func AddAContact(c echo.Context) error {
@@ -22,13 +22,20 @@ func AddAContact(c echo.Context) error {
 	db := database.DBManager()
 
 	c.Bind(&input)
+
 	err := addAContactValidate(c, input)
 	if err != nil {
 		return echo.ErrBadRequest
 	}
-	result := db.Where("to_id =" + strconv.Itoa(int(input.To))).Where("from_id =" + strconv.Itoa(int(helpers.User(c).ID))).Find(&block)
+	result := db.Where("from_id =" + strconv.Itoa(int(input.To))).Where("to_id =" + strconv.Itoa(int(helpers.User(c).ID))).Find(&block)
 
 	if result.RowsAffected > 0 {
+		return c.JSON(http.StatusInternalServerError, http.StatusText(http.StatusInternalServerError))
+	}
+
+	result = db.Where("to_id =" + strconv.Itoa(int(input.To))).Where("user_id =" + strconv.Itoa(int(helpers.User(c).ID))).Find(&contact)
+
+	if result.RowsAffected > 1 {
 		return c.JSON(http.StatusInternalServerError, http.StatusText(http.StatusInternalServerError))
 	}
 
@@ -38,7 +45,10 @@ func AddAContact(c echo.Context) error {
 	if result.Error != nil {
 		return c.JSON(http.StatusInternalServerError, http.StatusText(http.StatusInternalServerError))
 	}
-	return c.JSON(http.StatusOK, http.StatusText(http.StatusOK))
+
+	return c.JSON(http.StatusOK, map[string]bool{
+		"isAdded": true,
+	})
 }
 
 func addAContactValidate(c echo.Context, input inputAddAContact) error {
