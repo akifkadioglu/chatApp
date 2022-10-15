@@ -34,6 +34,7 @@ func Api() {
 	//user controllers
 	auth.GET("/searchUsers", usercontroller.SearchUser)
 	auth.GET("/getSingleUser", usercontroller.GetSingleUser)
+	auth.GET("/getRandomUsers", usercontroller.GetRandomUsers)
 
 	//group controllers
 	auth.POST("/createGroup", groupcontroller.CreateGroup)
